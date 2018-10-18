@@ -8,8 +8,8 @@ class Navbar extends Component {
     let links = [];
 
     // Loop through the index and extract the link and the name to display as buttons in the navbar
-    Object.keys(this.props.index).forEach((key, index) => {
-      links.push(<Link to={this.props.index[key].link} key={index}>{this.props.index[key].name}</Link>);
+    Object.keys(this.props.index).forEach((key) => {
+      links.push(<Link to={this.props.index[key].link} key={key}>{this.props.index[key].name}</Link>);
     });
 
     return (
