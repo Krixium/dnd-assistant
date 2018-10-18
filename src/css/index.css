@@ -1,0 +1,114 @@
+* {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-size: 100%;
+        vertical-align: baseline;
+        background: transparent;
+    }
+body {
+    background-color: #E8D2AA;
+    font-family: 'Comfortaa';
+    margin: 0;
+    padding: 0;
+}
+
+#navbar a {
+    display: block;
+    text-decoration: none;
+    background-color: #662F00;
+    padding: 10% 1% 10% 1%;
+    text-align: center;
+    color: #0096B2;
+    font-size: 1.4em;
+    font-weight: bolder;
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-color: #0096B2;
+    text-shadow: 2px 2px 10px black;
+}
+
+#navbar a:hover { 
+    background-color: #0096B2;
+    color: #662F00;
+    text-shadow: none;
+}
+
+#navbar{
+    width: 20%;
+    height: 100vh;
+    float: left;
+    background-color: #662F00;
+    box-shadow: 5px 5px 20px grey;
+    position: fixed;
+    right: 80%;
+    top: 0;
+}
+#content {
+    margin-left: 30%;
+    padding-top: 1%;
+    padding-bottom: 3%;
+    width: 60%;
+}
+
+h1 {
+    text-align: center;
+    color: #662F00;
+    font-size: 2em;
+    font-weight: bold;
+
+}
+h2, h2 a{
+    text-align: center;
+    color: #0096B2;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+p {
+    text-align: center;
+}
+
+.popup {
+    background-color: #FFF5ED;
+    padding: 2.5%;
+    box-shadow: 5px 5px 20px grey;
+}
+
+form {
+    width:100%; 
+    margin:0 auto;
+}
+input[type=number], input[type=search], select {
+    width: 15%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 8%;
+    background-color: #662F00;
+    color: #0096B2;
+    padding: 1% 1%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-shadow: 2px 2px 10px black;
+}
+
+input[type=submit]:hover {
+    background-color: #0096B2;
+    color: #662F00;
+    text-shadow: none;
+}
+
+#hpForm {
+    width: 75%;
+}
+#hpForm input[type=number], #hpForm select {
+    width: 30%;
+}
