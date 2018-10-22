@@ -14,8 +14,8 @@ class App extends Component {
     let routes = [];
 
     // Loop through all the entries in the index and create a route to that page
-    Object.keys(pageIndex).forEach((key, index) => {
-      routes.push(<Route exact path={pageIndex[key].link} component={pageIndex[key].component} key={index}/>);
+    Object.keys(pageIndex).forEach((key) => {
+      routes.push(<Route exact path={pageIndex[key].link} component={pageIndex[key].component} key={key}/>);
     });
 
     return (
