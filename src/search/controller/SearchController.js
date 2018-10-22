@@ -7,9 +7,9 @@ class SearchController extends Component {
     super(props);
     
     this.state = {
-      searchCategory: "",
-      searchValue: "",
-      searchResults: ""
+      searchCategory: '',
+      searchValue: '',
+      searchResults: ''
     };
   }
 
@@ -22,8 +22,16 @@ class SearchController extends Component {
   }
 
   searchOnClickCallback() {
+    // const apiEndpoint = 'http://dnd5eapi.co/api/spells/1';
+    const apiEndpoint = 'https://restcountries.eu/rest/v2/all';
     console.log(this.state);
-    // Make search here
+    fetch(apiEndpoint).then(res => {
+      return res.json();
+    }).then(data => {
+      console.log(data);
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   render() {
