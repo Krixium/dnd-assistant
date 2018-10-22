@@ -1,5 +1,8 @@
+// Library
 import React from 'react';
 
+// Components
+import SearchController from 'search/controller/SearchController.js';
 
 const pageIndex = {
   home: {
@@ -35,7 +38,7 @@ const pageIndex = {
   search: {
     name: 'Search',
     link: '/search',
-    component: (props) => <h1>Search</h1>
+    component: SearchController
   }
 }
 
