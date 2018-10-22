@@ -1,11 +1,11 @@
 import React from 'react';
-
+import Home from 'home/view/home.js'
 
 const pageIndex = {
   home: {
     name: 'Home',
     link: '/',
-    component: (props) => <h1>Home</h1>
+    component: Home
   },
   dice: {
     name: 'Dice Roller',
