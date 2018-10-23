@@ -2,6 +2,7 @@
 import React from 'react';
 
 // Components
+import Home from 'home/view/home.js';
 import SearchController from 'search/controller/SearchController.js';
 
 const pageIndex = {
