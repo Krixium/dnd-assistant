@@ -6,10 +6,12 @@ class SearchInput extends Component {
       <div>
         <form>
           <select name='category' onChange={this.props.categoryChangeCallback}>
-            <option value='race'>Race</option>
-            <option value='class'>Class</option>
+            <option value=''/>
+            <option value='races'>Race</option>
+            <option value='classes'>Class</option>
             <option value='spells'>Spells</option>
-            <option value='items'>Items</option>
+            <option value='features'>Features</option>
+            <option value='equipment'>Equipment</option>
             <option value='monsters'>Monsters</option>
           </select>
           <input name='value' type='text' onChange={this.props.valueChangeCallback} />
