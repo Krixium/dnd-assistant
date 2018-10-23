@@ -6,30 +6,14 @@ class RaceComponent extends Component {
     const abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 
     let bonuses = '';
-
     for (let i = 0; i < abilities.length; i++) {
       bonuses += abilities[i] + ':' + this.props.data.ability_bonuses[i] + ' ';
     }
 
-    let proficiencies = [];
-    this.props.data.starting_proficiencies.forEach(item => {
-      proficiencies.push(<li key={item.name}>{item.name}</li>)
-    });
-
-    let languages = [];
-    this.props.data.languages.forEach(item => {
-      languages.push(<li key={item.name}>{item.name}</li>)
-    });
-
-    let traits = [];
-    this.props.data.traits.forEach(item => {
-      traits.push(<li key={item.name}>{item.name}</li>)
-    });
-
-    let subraces = [];
-    this.props.data.subraces.forEach(item => {
-      subraces.push(<li key={item.name}>{item.name}</li>)
-    });
+    let proficiencies = this.props.data.starting_proficiencies.map(item => <li key={item.name}>{item.name}</li>);
+    let languages = this.props.data.languages.map(item => <li key={item.name}>{item.name}</li>);
+    let traits = this.props.data.traits.map(item => <li key={item.name}>{item.name}</li>);
+    let subraces = this.props.data.subraces.map(item => <li key={item.name}>{item.name}</li>);
 
     return (
       <div>

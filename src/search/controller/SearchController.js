@@ -61,15 +61,14 @@ class SearchController extends Component {
 
       // Wait for all the requests to finish
       let tmp = [];
-      Promise.all(promises).then((races) => {
-        races.forEach(data => {
-          tmp.push(<ViewComponent data={data} key={data.name}/>); // figure out how to do this
+      Promise.all(promises).then((request) => {
+        request.forEach(data => {
+          tmp.push(<ViewComponent data={data} key={data.name}/>);
         });
 
         this.setState({searchResults: tmp});
       });
     });
-
   }
 
   racesCallback(data) {
