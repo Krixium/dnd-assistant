@@ -63,7 +63,7 @@ class SearchController extends Component {
       let tmp = [];
       Promise.all(promises).then((request) => {
         request.forEach(data => {
-          tmp.push(<ViewComponent data={data} key={data.id}/>);
+          tmp.push(<ViewComponent data={data} key={data._id}/>);
         });
 
         this.setState({searchResults: tmp});
