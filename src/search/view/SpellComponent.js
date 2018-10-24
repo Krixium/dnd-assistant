@@ -1,6 +1,28 @@
 import React, { Component } from 'react';
 
 class SpellComponent extends Component {
+  generateHigherLevelRow() {
+    if (this.props.data.hasOwnProperty('higher_level')) {
+      return (
+        <tr>
+          <td><h3>Higher Level</h3></td>
+          <td>{this.props.data.higher_level}</td>
+        </tr>        
+      );
+    }
+  }
+
+  generateMaterialsRow() {
+    if (this.props.data.hasOwnProperty('material')) {
+      return (
+        <tr>
+          <td><h3>Materials</h3></td>
+          <td>{this.props.data.material}</td>
+        </tr>        
+      );
+    }
+  }
+
   render() {
     const components = this.props.data.components.map(element => element + ' ');
     const classes = this.props.data.classes.map(element => <li key={element.name}>{element.name}</li>)
@@ -18,10 +40,7 @@ class SpellComponent extends Component {
               <td><h3>Description</h3></td>
               <td>{this.props.data.desc}</td>
             </tr>
-            <tr>
-              <td><h3>Higher Levels</h3></td>
-              <td>{this.props.data.higher_level}</td>
-            </tr>
+            {this.generateHigherLevelRow()}
             <tr>
               <td><h3>Reference</h3></td>
               <td>{this.props.data.page}</td>
@@ -34,10 +53,7 @@ class SpellComponent extends Component {
               <td><h3>Components</h3></td>
               <td>{components}</td>
             </tr>
-            <tr>
-              <td><h3>Materials</h3></td>
-              <td>{this.props.data.material}</td>
-            </tr>
+            {this.generateMaterialsRow()}
             <tr>
               <td><h3>Ritual</h3></td>
               <td>{this.props.data.ritual}</td>
