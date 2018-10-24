@@ -6,7 +6,7 @@ class ClassComponent extends Component {
       let choices = element.from.map(e => <li key={e.name}>{e.name}</li>);
       return (
         <li key={i}>
-          <h2>Choose {element.choose}</h2>
+          <h3>Choose {element.choose}</h3>
           <ul>
             {choices}
           </ul>
@@ -20,27 +20,29 @@ class ClassComponent extends Component {
         <table>
           <tbody>
             <tr>
-              <td>Name</td>
+              <td><h3>Name</h3></td>
               <td>{this.props.data.name}</td>
             </tr>
             <tr>
-              <td>Hit Dice</td>
-              <td>{'d' + this.props.data.hit_dice}</td>
+              <td><h3>Hit Dice</h3></td>
+              <td>{'d' + this.props.data.hit_die}</td>
             </tr>
             <tr>
-              <td>Proficiency Choices</td>
+              <td><h3>Proficiency Choices</h3></td>
               <td><ul>{proficiencyChoices}</ul></td>
             </tr>
             <tr>
-              <td>Proficiencies</td>
+              <td><h3>Proficiencies</h3></td>
               <td><ul>{proficiencies}</ul></td>
             </tr>
             <tr>
-              <td>Saving Throws</td>
+              <td><h3>Saving Throws</h3></td>
               <td><ul>{savingThrows}</ul></td>
             </tr>
           </tbody>
         </table>
+        <br />
+        <br />
       </div>
     );
   }
