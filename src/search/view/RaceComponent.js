@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 class RaceComponent extends Component {
   render() {
-    const none = 'None';
     const abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 
     let bonuses = '';
@@ -10,10 +9,10 @@ class RaceComponent extends Component {
       bonuses += abilities[i] + ':' + this.props.data.ability_bonuses[i] + ' ';
     }
 
-    let proficiencies = this.props.data.starting_proficiencies.map(item => <li key={item.name}>{item.name}</li>);
-    let languages = this.props.data.languages.map(item => <li key={item.name}>{item.name}</li>);
-    let traits = this.props.data.traits.map(item => <li key={item.name}>{item.name}</li>);
-    let subraces = this.props.data.subraces.map(item => <li key={item.name}>{item.name}</li>);
+    const proficiencies = this.props.data.starting_proficiencies.map(item => <li key={item.name}>{item.name}</li>);
+    const languages = this.props.data.languages.map(item => <li key={item.name}>{item.name}</li>);
+    const traits = this.props.data.traits.map(item => <li key={item.name}>{item.name}</li>);
+    const subraces = this.props.data.subraces.map(item => <li key={item.name}>{item.name}</li>);
 
     return (
       <div>
@@ -38,7 +37,7 @@ class RaceComponent extends Component {
             <tr>
               <td><h3>Proficiencies</h3></td>
               <td>
-                <ul>{proficiencies.length > 0 ? proficiencies : none}</ul>
+                <ul>{proficiencies.length > 0 ? proficiencies : 'None'}</ul>
               </td>
             </tr>
             <tr>
@@ -50,19 +49,19 @@ class RaceComponent extends Component {
             <tr>
               <td><h3>Traits</h3></td>
               <td>
-                <ul>{traits.length > 0 ? traits : none}</ul>
+                <ul>{traits.length > 0 ? traits : 'None'}</ul>
               </td>
             </tr>
             <tr>
               <td><h3>Languages</h3></td>
               <td>
-                <ul>{languages.length > 0 ? languages : none}</ul>
+                <ul>{languages.length > 0 ? languages : 'None'}</ul>
               </td>
             </tr>
             <tr>
               <td><h3>Subraces</h3></td>
               <td>
-                <ul>{subraces.length > 0 ? subraces : none}</ul>
+                <ul>{subraces.length > 0 ? subraces : 'None'}</ul>
               </td>
             </tr>
           </tbody>
