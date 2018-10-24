@@ -98,6 +98,7 @@ class SearchController extends Component {
   searchOnClickCallback() {
     // Dont do anything if there is not category
     if (this.state.searchCategory === '') return;
+    if (this.state.searchValue === '') return;
 
     // Root of request
     let request = corsBypass + apiEndpoint + this.state.searchCategory;
