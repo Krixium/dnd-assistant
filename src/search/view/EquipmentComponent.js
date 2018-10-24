@@ -6,7 +6,7 @@ class EquipmentComponent extends Component {
       return (
         <tr>
           <td><h3>Properties</h3></td>
-          <td>{this.props.data.properties.map(element => <li key={element.name}>{element.name}</li>)}</td>
+          <td>{this.props.data.properties.map(element => <li key={element.url}>{element.name}</li>)}</td>
         </tr>
       );
     }
@@ -15,14 +15,12 @@ class EquipmentComponent extends Component {
   generateDamageRow() {
     if (this.props.data.hasOwnProperty('damage')) {
       return (
-        <div>
-          <tr>
-            <td><h3>Damage</h3></td>
-            <td>
-              {this.props.data.damage.dice_count + 'd' + this.props.data.damage.dice_value + ' ' + this.props.data.damage.damage_type.name}
-            </td>
-          </tr>
-        </div>
+        <tr>
+          <td><h3>Damage</h3></td>
+          <td>
+            {this.props.data.damage.dice_count + 'd' + this.props.data.damage.dice_value + ' ' + this.props.data.damage.damage_type.name}
+          </td>
+        </tr>
       );
     }
   }
@@ -42,46 +40,73 @@ class EquipmentComponent extends Component {
     }
   }
 
-  genearteWeaponRangeRow() {
+  generateWeaponRangeRow() {
     if (this.props.data.hasOwnProperty('weapon_range')) {
-      return (<tr>
-        <td><h3>Weapon Range</h3></td>
-        <td>{this.props.data.weapon_range}</td>
-      </tr>
+      return (
+        <tr>
+          <td><h3>Weapon Range</h3></td>
+          <td>{this.props.data.weapon_range}</td>
+        </tr>
       );
     }
   }
 
-  generateArmorRows() {
-    let rows = [];
-    if (this.props.equipment_category === 'Armor') {
-      rows.append(
+  generateArmorCategoryRow() {
+    if (this.props.data.hasOwnProperty('armor_category')) {
+      return (
         <tr>
           <td><h3>Armour Category</h3></td>
           <td>{this.props.data.armor_category}</td>
         </tr>
       );
-      rows.append(
+    }
+  }
+
+  generateArmorClassRow() {
+    if (this.props.data.hasOwnProperty('armor_class')) {
+      return (
         <tr>
           <td><h3>Armour Class</h3></td>
-          <td>{this.props.data.armour_class.base
-            + this.props.armor_class.dex_bonus ? ' dex bonus ' + this.props.armor_class.dex_bonus + ' max ' + this.props.armour_class.max_bonus : ''}</td>
+          <td>
+            {this.props.data.armor_class.base}
+            {this.props.data.armor_class.dex_bonus ? ' dex bonus max +' + this.props.data.armor_class.max_bonus : ''}
+          </td>
         </tr>
       );
-      rows.append(
+    }
+  }
+
+  generateStrMinRow() {
+    if (this.props.data.hasOwnProperty('str_minimum')) {
+      return (
         <tr>
           <td><h3>Strength Minimum</h3></td>
           <td>{this.props.data.str_minimum}</td>
         </tr>
       );
-      rows.append(
+    }
+  }
+
+  generateStealthDisadvantageRow() {
+    if (this.props.data.hasOwnProperty('stealth_disadvantage')) {
+      return (
         <tr>
-          <td><h3>Stealth Disadvantage?</h3></td>
-          <td>{this.props.data.stealth_disadvantage}</td>
+          <td><h3>Stealth Disadvantage</h3></td>
+          <td>{this.props.data.stealth_disadvantage ? 'True' : 'False'}</td>
         </tr>
       );
     }
-    return rows;
+  }
+
+  generateVehicleCategoryRow() {
+    if (this.props.data.hasOwnProperty('vehicle_category')) {
+      return (
+        <tr>
+          <td><h3>Vehicle Category</h3></td>
+          <td>{this.props.data.vehicle_category}</td>
+        </tr>
+      );
+    }
   }
 
   render() {
@@ -99,7 +124,12 @@ class EquipmentComponent extends Component {
             </tr>
             {this.generateDamageRow()}
             {this.generateRangeRow()}
-            {this.genearteWeaponRangeRow()}
+            {this.generateWeaponRangeRow()}
+            {this.generateArmorCategoryRow()}
+            {this.generateArmorClassRow()}
+            {this.generateStrMinRow()}
+            {this.generateStealthDisadvantageRow()}
+            {this.generateVehicleCategoryRow()}
             <tr>
               <td><h3>Cost</h3></td>
               <td>{this.props.data.cost.quantity + ' ' + this.props.data.cost.unit}</td>

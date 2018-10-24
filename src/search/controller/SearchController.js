@@ -11,7 +11,7 @@ import EquipmentComponent from 'search/view/EquipmentComponent.js';
 import MonsterComponent from 'search/view/MonsterComponent.js';
 
 // API endpoints
-const corsBypass = 'https://cors-anywhere.herokuapp.com/';
+const corsBypass = 'https://arcane-thicket-21938.herokuapp.com/';
 const apiEndpoint = 'http://dnd5eapi.co/api/';
 
 
@@ -63,7 +63,7 @@ class SearchController extends Component {
       let tmp = [];
       Promise.all(promises).then((request) => {
         request.forEach(data => {
-          tmp.push(<ViewComponent data={data} key={data.name}/>);
+          tmp.push(<ViewComponent data={data} key={data.id}/>);
         });
 
         this.setState({searchResults: tmp});
