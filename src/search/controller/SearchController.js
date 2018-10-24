@@ -4,9 +4,16 @@ import React, { Component } from 'react';
 import SearchInput from 'search/view/SearchInput.js';
 
 import RaceComponent from 'search/view/RaceComponent.js';
+import ClassComponent from 'search/view/ClassComponent.js';
+import SpellComponent from 'search/view/SpellComponent.js';
+import FeaturesComponent from 'search/view/FeaturesComponent.js';
+import EquipmentComponent from 'search/view/EquipmentComponent.js';
+import MonsterComponent from 'search/view/MonsterComponent.js';
 
-const corsBypass = 'https://cors-anywhere.herokuapp.com/';
+// API endpoints
+const corsBypass = 'https://arcane-thicket-21938.herokuapp.com/';
 const apiEndpoint = 'http://dnd5eapi.co/api/';
+
 
 class SearchController extends Component {
   constructor(props) {
@@ -19,6 +26,11 @@ class SearchController extends Component {
     };
   }
 
+  // Checks if the value contains the search value
+  matchesSearch(value) {
+    return value.toLocaleLowerCase().includes(this.state.searchValue.toLocaleLowerCase());
+  }
+
   // Updates category in state when category is changed
   handleCategoryChange(event) {
     this.setState({searchCategory: event.target.value});
@@ -29,26 +41,29 @@ class SearchController extends Component {
     this.setState({searchValue: event.target.value});
   }
 
-  racesCallback(data) {
+  // Filters the data and then passes the data to the correct component
+  populateViewComponent(data, ViewComponent) {
     let promises = [];
+
+    // Filter or results that match search
+    let filteredNames = data.results.filter(element => this.matchesSearch(element.name));
+  
     // For each result ...
-    data.results.forEach(element => {
+    filteredNames.forEach(element => {
       // Make a request and append it to an array
       promises.push(
         fetch(corsBypass + element.url).then(res => {
           return res.json(); 
-        }).then(resData => {
-          if (resData.name.toLowerCase().includes(this.state.searchValue.toLocaleLowerCase())) {
-            return resData;
-          }
+        }).then(data => {
+          return data;
         })
       );
 
       // Wait for all the requests to finish
-      Promise.all(promises).then((races) => {
-        let tmp = [];
-        races.forEach(race => {
-          tmp.push(<RaceComponent data={race} key={race.name}/>);
+      let tmp = [];
+      Promise.all(promises).then((request) => {
+        request.forEach(data => {
+          tmp.push(<ViewComponent data={data} key={data._id}/>);
         });
 
         this.setState({searchResults: tmp});
@@ -56,33 +71,34 @@ class SearchController extends Component {
     });
   }
 
+  racesCallback(data) {
+    this.populateViewComponent(data, RaceComponent);
+  }
+
   classesCallback(data) {
-    console.log('classes');
+    this.populateViewComponent(data, ClassComponent);
   }
 
   spellsCallback(data) {
-    console.log('spells');
-
+    this.populateViewComponent(data, SpellComponent);
   }
 
   featuresCallback(data) {
-    console.log('features');
-
+    this.populateViewComponent(data, FeaturesComponent);
   }
 
   equipmentCallback(data) {
-    console.log('races');
-
+    this.populateViewComponent(data, EquipmentComponent);
   }
 
   monstersCallback(data) {
-    console.log('monsters');
-
+    this.populateViewComponent(data, MonsterComponent);
   }
 
   searchOnClickCallback() {
     // Dont do anything if there is not category
     if (this.state.searchCategory === '') return;
+    if (this.state.searchValue === '') return;
 
     // Root of request
     let request = corsBypass + apiEndpoint + this.state.searchCategory;

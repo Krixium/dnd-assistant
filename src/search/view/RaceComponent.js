@@ -2,83 +2,66 @@ import React, { Component } from 'react';
 
 class RaceComponent extends Component {
   render() {
-    const none = 'None';
     const abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 
     let bonuses = '';
-
     for (let i = 0; i < abilities.length; i++) {
       bonuses += abilities[i] + ':' + this.props.data.ability_bonuses[i] + ' ';
     }
 
-    let proficiencies = [];
-    this.props.data.starting_proficiencies.forEach(item => {
-      proficiencies.push(<li key={item.name}>{item.name}</li>)
-    });
-
-    let languages = [];
-    this.props.data.languages.forEach(item => {
-      languages.push(<li key={item.name}>{item.name}</li>)
-    });
-
-    let traits = [];
-    this.props.data.traits.forEach(item => {
-      traits.push(<li key={item.name}>{item.name}</li>)
-    });
-
-    let subraces = [];
-    this.props.data.subraces.forEach(item => {
-      subraces.push(<li key={item.name}>{item.name}</li>)
-    });
+    const proficiencies = this.props.data.starting_proficiencies.map(item => <li key={item.name}>{item.name}</li>);
+    const languages = this.props.data.languages.map(item => <li key={item.name}>{item.name}</li>);
+    const traits = this.props.data.traits.map(item => <li key={item.name}>{item.name}</li>);
+    const subraces = this.props.data.subraces.map(item => <li key={item.name}>{item.name}</li>);
 
     return (
       <div>
         <table>
           <tbody>
             <tr>
-              <td>Name</td>
+              <td><h3>Name</h3></td>
               <td>{this.props.data.name}</td>
             </tr>
             <tr>
-              <td>Alignment</td>
+              <td><h3>Alignment</h3></td>
               <td>{this.props.data.alignment}</td>
             </tr>
             <tr>
-              <td>Size Description</td>
+              <td><h3>Size Description</h3></td>
               <td>{this.props.data.size_description}</td>
             </tr>
             <tr>
-              <td>Speed</td>
+              <td><h3>Speed</h3></td>
               <td>{this.props.data.speed}</td>
             </tr>
             <tr>
-              <td>Proficiencies</td>
+              <td><h3>Proficiencies</h3></td>
               <td>
-                <ul>{proficiencies.length > 0 ? proficiencies : none}</ul>
+                <ul>{proficiencies.length > 0 ? proficiencies : 'None'}</ul>
               </td>
             </tr>
             <tr>
-              <td>Bonuses</td>
+              <td><h3>Bonuses</h3></td>
               <td>
                 <ul>{bonuses}</ul>
               </td>
             </tr>
             <tr>
-              <td>Traits</td>
+              <td><h3>Traits</h3></td>
               <td>
-                <ul>{traits.length > 0 ? traits : none}</ul>
+                <ul>{traits.length > 0 ? traits : 'None'}</ul>
               </td>
             </tr>
             <tr>
-              <td>Languages</td>
+              <td><h3>Languages</h3></td>
               <td>
-                <ul>{languages.length > 0 ? languages : none}</ul>
+                <ul>{languages.length > 0 ? languages : 'None'}</ul>
               </td>
             </tr>
             <tr>
-              <td>Subraces</td>
+              <td><h3>Subraces</h3></td>
               <td>
-                <ul>{subraces.length > 0 ? subraces : none}</ul>
+                <ul>{subraces.length > 0 ? subraces : 'None'}</ul>
               </td>
             </tr>
           </tbody>
