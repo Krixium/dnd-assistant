@@ -102,3 +102,6 @@ class HpTrackerController extends Component {
 }
 
 export default HpTrackerController;
+export {
+  HpTrackerState
+}
