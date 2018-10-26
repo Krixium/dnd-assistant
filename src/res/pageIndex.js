@@ -3,8 +3,9 @@ import React from 'react';
 
 // Components
 import Home from 'home/view/home.js';
+import HpTrackerController from 'hp/controller/HpTrackerController';
+import CombatLogController from 'combat-log/controller/CombatLogController.js';
 import SearchController from 'search/controller/SearchController.js';
-import HpTrackerController from '../hp/controller/HpTrackerController';
 
 const pageIndex = {
   home: {
@@ -25,7 +26,7 @@ const pageIndex = {
   log: {
     name: 'Combat Log',
     link: '/log',
-    component: (props) => <h1>Combat Log</h1>
+    component: CombatLogController 
   },
   profile: {
     name: 'Character Profile',
