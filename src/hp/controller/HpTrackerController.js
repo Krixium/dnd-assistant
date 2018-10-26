@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 // Data Model
 import CombatUnit from 'hp/model/CombatUnit.js';
+import CombatLog from 'res/combatLog.js';
 
 // Components
 import UnitFrameComponent from 'hp/view/UnitFrameComponent.js';
@@ -11,9 +12,7 @@ let HpTrackerState = {
   units: [],
   nameBuffer: "",
   healthBuffer: 0,
-  log: []
 };
-
 
 class HpTrackerController extends Component {
   constructor(props) {
@@ -64,12 +63,13 @@ class HpTrackerController extends Component {
     this.state.units[index].changeHealth(number);
 
     // Log it
-    let oldLog = this.state.log;
-    oldLog.push({
+    CombatLog.log.push({
       name: this.state.units[index].getName(),
       delta: value
     });
-    this.setState({log: oldLog});
+
+    // Force re-render
+    this.forceUpdate();
   }
 
   render() {
@@ -102,6 +102,3 @@ class HpTrackerController extends Component {
 }
 
 export default HpTrackerController;
-export {
-  HpTrackerState
-}
