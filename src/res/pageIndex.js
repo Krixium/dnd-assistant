@@ -5,6 +5,7 @@ import React from 'react';
 import Home from 'home/view/home.js';
 import HpTrackerController from 'hp/controller/HpTrackerController';
 import CombatLogController from 'combat-log/controller/CombatLogController.js';
+import CharacterProfileController from 'character-profile/controller/CharacterProfileController.js';
 import SearchController from 'search/controller/SearchController.js';
 
 const pageIndex = {
@@ -31,7 +32,7 @@ const pageIndex = {
   profile: {
     name: 'Character Profile',
     link: '/profile',
-    component: (props) => <h1>Character Profile</h1>
+    component: CharacterProfileController
   },
   custom: {
     name: 'Custom Items',
