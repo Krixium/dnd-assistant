@@ -6,23 +6,27 @@ import Character from 'character-profile/model/Character.js';
 import CharacterStatsComponent from 'character-profile/view/CharacterStatsComponent.js';
 import CharacterSkillsComponent from 'character-profile/view/CharacterSkillsComponent.js';
 
+let saveState = {
+  character: new Character(),
+  selectedRace: '',
+  selectedClass: '',
+  selectedAlignment: '',
+  selectedLevel: 0,
+  selectedStats: { 
+    str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 },
+  selectedSkills: [],
+  currentHp: 0
+};
+
 class CharacterSheetComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      character: new Character(),
-      selectedRace: '',
-      selectedClass: '',
-      selectedAlignment: '',
-      selectedLevel: 0,
-      selectedStats: { 
-        str: 0, dex: 0, con: 0,
-        int: 0, wis: 0, cha: 0
-      },
-      selectedSkills: [],
-      currentHp: 0
-    };
+    this.state = saveState;
+  }
+
+  componentWillUnmount() {
+    saveState = this.state;
   }
 
   createRaceOptions() {
@@ -80,18 +84,13 @@ class CharacterSheetComponent extends Component {
 
     let tmp = this.state.selectedSkills;
     
-    // If selected
     if (event.target.checked) {
-      // If value does not already exist in the array
       if (tmp.indexOf(event.target.value) === -1) {
-        // Add the skill to the array
         tmp.push(event.target.value);
       }
     } else {
       let i = tmp.indexOf(event.target.value);
-      // If element exists in the array
       if (i > -1) {
-        // Remove it
         tmp.splice(i, 1);
       }
     }
