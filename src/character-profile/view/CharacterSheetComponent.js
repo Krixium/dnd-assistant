@@ -8,50 +8,32 @@ class CharacterSheetComponent extends Component {
     super(props);
 
     this.state = {
-      selectedSkills: []
+      selectedRace: '',
+      selectedClass: '',
+      selectedAlignment: '',
+      selectedLevel: 0,
+      selectedStats: { 
+        str: 0, dex: 0, con: 0,
+        int: 0, wis: 0, cha: 0
+      },
+      selectedSkills: [],
+      currentHp: 0
     };
   }
 
   createRaceOptions() {
-    const raceDispaly = [
-      'Dwarf',
-      'Elf',
-      'Halfling',
-      'Human',
-      'Dragonborn',
-      'Gnome',
-      'Half Elf',
-      'Half Orc',
-      'Tiefling'
-    ];
-
     let options = [<option value='' key='-1'/>];
-    for (let i = 0; i < raceDispaly.length; i++) {
-      options.push(<option value={globals.races[i]} key={i}>{raceDispaly[i]}</option>)
+    for (let i = 0; i < globals.strings.races.length; i++) {
+      options.push(<option value={globals.races[i]} key={i}>{globals.strings.races[i]}</option>)
     }
 
     return options;
   }
 
   createClassOptions() {
-    const classDisplay = [
-      'Barbarian',
-      'Bard',
-      'Cleric',
-      'Druid',
-      'Fighter',
-      'Monk',
-      'Paladin',
-      'Ranger',
-      'Rogue',
-      'Sorcerer',
-      'Warlock',
-      'Wizard'
-    ];
-
     let options = [<option value='' key='-1'/>];
-    for (let i = 0; i < classDisplay.length; i++) {
-      options.push(<option value={globals.classes[i]} key={i}>{classDisplay[i]}</option>);
+    for (let i = 0; i < globals.strings.classes.length; i++) {
+      options.push(<option value={globals.classes[i]} key={i}>{globals.strings.classes[i]}</option>);
     }
 
     return options;
@@ -60,6 +42,25 @@ class CharacterSheetComponent extends Component {
   createAlignmentOptions() {
     let options = [<option value='' key='-1'/>];
     return options.concat(globals.alignments.map((a, i) => <option value={a} key={i}>{a}</option>));
+  }
+
+  raceHandler(event) {
+    if (event.target.value === '') return;
+    this.setState({selectedRace: event.target.value});
+  }
+
+  classHandler(event) {
+    if (event.target.value === '') return;
+    this.setState({selectedClass: event.target.value});
+  }
+
+  alignmentHandler(event) {
+    if (event.target.value === '') return;
+    this.setState({selectedAlignment: event.target.value});
+  }
+
+  levelHandler(event) {
+    this.setState({selectedAlignment: event.target.value});
   }
 
   skillsCheckboxHandler(event) {
@@ -84,7 +85,16 @@ class CharacterSheetComponent extends Component {
     }
 
     this.setState({selectedSkills: tmp});
-    console.log(this.state.selectedSkills);
+  }
+
+  statsHandler(event) {
+    let tmp = this.state.selectedStats;
+    tmp[event.target.name] = event.target.value;
+    this.setState({selectedStats: tmp});
+  }
+
+  hpHandler(event) {
+    this.setState({currentHp: event.target.value});
   }
 
   render() {
@@ -104,7 +114,7 @@ class CharacterSheetComponent extends Component {
             </tr>
             <tr>
               <td>HP</td>
-              <td><input name='currentLevel' type='number' />/<input name='maxLevel' type='number' /></td>
+              <td><input name='hp' type='number' />/[max hp here]</td>
               <td>[Initiative]</td>
               <td>[speed]</td>
             </tr>
@@ -113,24 +123,12 @@ class CharacterSheetComponent extends Component {
                 <h3>Stats</h3>
                 <table>
                   <tbody>
-                    <tr>
-                      <td>STR</td><td><input name='str' type='number' /></td>
-                    </tr>
-                    <tr>
-                      <td>DEX</td><td><input name='dex' type='number' /></td>
-                    </tr>
-                    <tr>
-                      <td>CON</td><td><input name='con' type='number' /></td>
-                    </tr>
-                    <tr>
-                      <td>INT</td><td><input name='int' type='number' /></td>
-                    </tr>
-                    <tr>
-                      <td>WIS</td><td><input name='wis' type='number' /></td>
-                    </tr>
-                    <tr>
-                      <td>CHA</td><td><input name='cha' type='number' /></td>
-                    </tr>
+                    <tr><td>STR</td><td><input name='str' type='number' onChange={this.statsHandler.bind(this)}/></td></tr>
+                    <tr><td>DEX</td><td><input name='dex' type='number' onChange={this.statsHandler.bind(this)}/></td></tr>
+                    <tr><td>CON</td><td><input name='con' type='number' onChange={this.statsHandler.bind(this)}/></td></tr>
+                    <tr><td>INT</td><td><input name='int' type='number' onChange={this.statsHandler.bind(this)}/></td></tr>
+                    <tr><td>WIS</td><td><input name='wis' type='number' onChange={this.statsHandler.bind(this)}/></td></tr>
+                    <tr><td>CHA</td><td><input name='cha' type='number' onChange={this.statsHandler.bind(this)}/></td></tr>
                   </tbody>
                 </table>
               </td>

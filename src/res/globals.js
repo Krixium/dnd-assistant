@@ -1,6 +1,33 @@
 const globals = {
   corsBypass: 'https://arcane-thicket-21938.herokuapp.com/',
   apiEndpoint: 'http://dnd5eapi.co/api/',
+  strings: {
+    races: [
+      'Dwarf',
+      'Elf',
+      'Halfling',
+      'Human',
+      'Dragonborn',
+      'Gnome',
+      'Half Elf',
+      'Half Orc',
+      'Tiefling'
+    ],
+    classes: [
+      'Barbarian',
+      'Bard',
+      'Cleric',
+      'Druid',
+      'Fighter',
+      'Monk',
+      'Paladin',
+      'Ranger',
+      'Rogue',
+      'Sorcerer',
+      'Warlock',
+      'Wizard'
+    ]
+  },
   races: [
     'dwarf',
     'elf',
