@@ -4,6 +4,14 @@ import globals from 'res/globals.js';
 import Character from 'character-profile/model/Character.js';
 
 class CharacterSheetComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedSkills: []
+    };
+  }
+
   createRaceOptions() {
     const raceDispaly = [
       'Dwarf',
@@ -52,6 +60,31 @@ class CharacterSheetComponent extends Component {
   createAlignmentOptions() {
     let options = [<option value='' key='-1'/>];
     return options.concat(globals.alignments.map((a, i) => <option value={a} key={i}>{a}</option>));
+  }
+
+  skillsCheckboxHandler(event) {
+    if (event.target.value === '') return;
+
+    let tmp = this.state.selectedSkills;
+    
+    // If selected
+    if (event.target.checked) {
+      // If value does not already exist in the array
+      if (tmp.indexOf(event.target.value) === -1) {
+        // Add the skill to the array
+        tmp.push(event.target.value);
+      }
+    } else {
+      let i = tmp.indexOf(event.target.value);
+      // If element exists in the array
+      if (i > -1) {
+        // Remove it
+        tmp.splice(i, 1);
+      }
+    }
+
+    this.setState({selectedSkills: tmp});
+    console.log(this.state.selectedSkills);
   }
 
   render() {
@@ -106,57 +139,57 @@ class CharacterSheetComponent extends Component {
                 <table>
                   <tbody>
                     <tr>
-                      <td><input type='checkbox' value={globals.skillNames[0]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[0]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Acrobatics</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[9]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[9]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Medicine</td><td>[value here]</td>
                     </tr>
                     <tr>
-                      <td><input type='checkbox' value={globals.skillNames[1]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[1]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Animal Handling</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[10]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[10]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Nature</td><td>[value here]</td>
                     </tr>
                     <tr>
-                      <td><input type='checkbox' value={globals.skillNames[2]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[2]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Arcana</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[11]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[11]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Perception</td><td>[value here]</td>
                     </tr>
                     <tr>
-                      <td><input type='checkbox' value={globals.skillNames[3]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[3]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Athletics</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[12]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[12]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Performance</td><td>[value here]</td>
                     </tr>
                     <tr>
-                      <td><input type='checkbox' value={globals.skillNames[4]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[4]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Deception</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[13]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[13]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Persuasion</td><td>[value here]</td>
                     </tr>
                     <tr>
-                      <td><input type='checkbox' value={globals.skillNames[5]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[5]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>History</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[14]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[14]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Religion</td><td>[value here]</td>
                     </tr>
                     <tr>
-                      <td><input type='checkbox' value={globals.skillNames[6]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[6]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Insight</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[15]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[15]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Sleight Of Hand</td><td>[value here]</td>
                     </tr>
                     <tr>
-                      <td><input type='checkbox' value={globals.skillNames[7]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[7]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Intimidation</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[16]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[16]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Stealth</td><td>[value here]</td>
                     </tr>
                     <tr>
-                      <td><input type='checkbox' value={globals.skillNames[8]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[8]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Investigation</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[17]}/></td>
+                      <td><input type='checkbox' value={globals.skillNames[17]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
                       <td>Survival</td><td>[value here]</td>
                     </tr>
                   </tbody>
