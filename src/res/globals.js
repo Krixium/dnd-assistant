@@ -1,6 +1,6 @@
 const globals = {
   corsBypass: 'https://arcane-thicket-21938.herokuapp.com/',
-  apiEndpoint: 'http://dnd5eapi.co/api/',
+  apiEndpoint: 'http://www.dnd5eapi.co/api/',
   strings: {
     races: [
       'Dwarf',
@@ -26,6 +26,34 @@ const globals = {
       'Sorcerer',
       'Warlock',
       'Wizard'
+    ],
+    attr: [
+      'str',
+      'dex',
+      'con',
+      'wis',
+      'int',
+      'cha'
+    ],
+    skillNames: [
+      'Acrobatics',
+      'Animal Handling',
+      'Arcana',
+      'Athletics',
+      'Deception',
+      'History',
+      'Insight',
+      'Intimidation',
+      'Investigation',
+      'Medicine',
+      'Nature',
+      'Perception',
+      'Performance',
+      'Persuasion',
+      'Religion',
+      'SleightOfHand',
+      'Stealth',
+      'Survival'
     ]
   },
   races: [

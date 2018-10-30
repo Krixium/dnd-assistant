@@ -32,88 +32,79 @@ class Character {
   class = '';
   race = '';
   alignment = '';
-  level = 0;
+  level = 1;
   stats = { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
   proficiency = 0;
   skills = {
-    acrobatics: 0,
-    animalHandling: 0,
-    arcana: 0,
-    athletics: 0,
-    deception: 0,
-    history: 0,
-    insight: 0,
-    intimidation: 0,
-    investigation: 0,
-    medicine: 0,
-    nature: 0,
-    perception: 0,
-    performance: 0,
-    persuasion: 0,
-    religion: 0,
-    sleightOfHand: 0,
-    stealth: 0,
-    survival: 0
+    acrobatics: 0, animalHandling: 0, arcana: 0,
+    athletics: 0, deception: 0, history: 0,
+    insight: 0, intimidation: 0, investigation: 0,
+    medicine: 0, nature: 0, perception: 0,
+    performance: 0, persuasion: 0, religion: 0,
+    sleightOfHand: 0, stealth: 0, survival: 0
   };
   ac = 0;
   initiative = 0;
   speed = 0;
-  hp = {
-    total: 0,
-    current: 0
-  };
+  hp = { total: 0, current: 0 };
   items = [];
   features = [];
   spells = [];
 
-  buffers = { classData: undefined, raceData: undefined, levelData: undefined }
-
-  // name: string
-  // race: string
-  // className: string
-  // alignment: string
-  // stats: stats object
-  // selectedSkills: array of strings
-  // selectedSpells: array of strings
-  constructor(name, race, className, alignment, stats, selectedSkills, selectedSpells) {
-    this.name = name;
-    this.race = race;
-    this.class = className;
-    this.alignment = alignment;
-    this.level = 1;
-    this.spells = selectedSpells;
-    this.getNewClassData();
-    this.getNewRaceData();
-    this.getNewLevelData()
-
-    this.calculateStats(stats);
-    this.calculateProficiencyBonus();
-    this.calculateInitiative();
-
-    this.calculateSkills(selectedSkills);
-    this.calculateAC();
-    this.calculateHp();
-
-    this.setFeatures();
-    this.calculateSpeed();
+  buffers = { 
+    classData: { hit_die: 0 }, 
+    raceData: { ability_bonuses: [0, 0, 0, 0, 0, 0] }, 
+    levelData: { prof_bonus: 2 },
+    baseStats: { str: 0, dex: 0, con: 0, wis: 0, int: 0, cha: 0 }
   }
 
-  async getNewClassData() {
-    await fetch(globals.corsBypass + classUrls[this.class])
+  setName(name) { this.name = name; }
+  getName() { return this.name; }
+  setRace(race) { this.race = race; }
+  getRace() { return this.race; }
+  setClass(className) { this.class = className; }
+  getClass() { return this.class; }
+  setAlignment(alignment) { this.alignment = alignment; }
+  getAlignment() { return this.alignment; }
+  setLevel(level) { this.level = level; }
+  getLevel() { return this.level; }
+  setSpells(selecteSpells) { this.spells = selecteSpells; }
+  setCurrentHp(value) { this.hp.current = value; }
+  getCurrentHp() { return this.hp.current; }
+  getMaxHp() { return this.hp.total; }
+  getInitiative() { return this.initiative; }
+  getSpeed() { return this.speed; }
+  getStats() { return this.stats; }
+  getSkills() { return this.skills; }
+
+  getNewClassData() {
+    fetch(globals.corsBypass + classUrls[this.class])
       .then(res => res.json())
-      .then(data => this.buffers.classData = data);
+      .then(data => {
+        this.buffers.classData = data;
+        this.calculateHp();
+        this.calculateProficiencyBonus();
+      });
   }
 
-  async getNewRaceData() {
-    await fetch(globals.corsBypass + raceUrls[this.race])
+  getNewRaceData() {
+    fetch(globals.corsBypass + raceUrls[this.race])
       .then(res => res.json())
-      .then(data => this.buffers.raceData = data);
+      .then(data => {
+        this.buffers.raceData = data;
+        this.calculateStats(this.buffers.baseStats);
+        this.calculateSpeed();
+      });
   }
 
-  async getNewLevelData() {
-    await fetch(globals.corsBypass + globals.apiEndpoint + 'classes/' + this.class + '/level/' + this.level)
+  getNewLevelData() {
+    if (this.class === '') return;
+    fetch(globals.corsBypass + globals.apiEndpoint + 'classes/' + this.class + '/level/' + this.level)
       .then(res => res.json())
-      .then(data => this.buffers.levelData = data);
+      .then(data => { 
+        this.buffers.levelData = data;
+        this.calculateProficiencyBonus();
+    });
   }
 
   calculateProficiencyBonus() {
@@ -121,12 +112,16 @@ class Character {
   }
 
   calculateStats(baseStats) {
-    this.stats.str = baseStats.str + this.buffers.raceData.ability_bonuses[0];
-    this.stats.dex = baseStats.dex + this.buffers.raceData.ability_bonuses[1];
-    this.stats.con = baseStats.con + this.buffers.raceData.ability_bonuses[2];
-    this.stats.int = baseStats.int + this.buffers.raceData.ability_bonuses[3];
-    this.stats.wis = baseStats.wis + this.buffers.raceData.ability_bonuses[4];
-    this.stats.cha = baseStats.cha + this.buffers.raceData.ability_bonuses[5];
+    this.stats.str = parseInt(baseStats.str) + parseInt(this.buffers.raceData.ability_bonuses[0]);
+    this.stats.dex = parseInt(baseStats.dex) + parseInt(this.buffers.raceData.ability_bonuses[1]);
+    this.stats.con = parseInt(baseStats.con) + parseInt(this.buffers.raceData.ability_bonuses[2]);
+    this.stats.int = parseInt(baseStats.int) + parseInt(this.buffers.raceData.ability_bonuses[3]);
+    this.stats.wis = parseInt(baseStats.wis) + parseInt(this.buffers.raceData.ability_bonuses[4]);
+    this.stats.cha = parseInt(baseStats.cha) + parseInt(this.buffers.raceData.ability_bonuses[5]);
+    this.buffers.baseStats = baseStats;
+    this.calculateInitiative();
+    this.calculateSkills([]);
+    this.calculateHp();
   }
 
   calculateSkills(selectedSkills) {
@@ -155,11 +150,11 @@ class Character {
   }
 
   calculateAC() {
-    
+    // TODO: calculate AC
   }
 
   calculateInitiative() {
-    this.initiative = this.calculateModifier(this.stat.dex);
+    this.initiative = this.calculateModifier(this.stats.dex);
   }
 
   calculateSpeed() {
@@ -167,15 +162,15 @@ class Character {
   }
 
   calculateHp() {
-    this.hp.total = this.buffers.classData.hit_dice + this.calculateModifier(this.stat.str);
+    this.hp.total = this.buffers.classData.hit_die + this.calculateModifier(this.stats.str);
   }
 
   setFeatures() {
-
+    // TODO: show features
   }
 
   calculateModifier(stat) {
-    return (stat - 10) / 2;
+    return Math.floor((stat - 10) / 2);
   }
 }
 

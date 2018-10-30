@@ -3,11 +3,15 @@ import React, { Component } from 'react';
 import globals from 'res/globals.js';
 import Character from 'character-profile/model/Character.js';
 
+import CharacterStatsComponent from 'character-profile/view/CharacterStatsComponent.js';
+import CharacterSkillsComponent from 'character-profile/view/CharacterSkillsComponent.js';
+
 class CharacterSheetComponent extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      character: new Character(),
       selectedRace: '',
       selectedClass: '',
       selectedAlignment: '',
@@ -47,20 +51,28 @@ class CharacterSheetComponent extends Component {
   raceHandler(event) {
     if (event.target.value === '') return;
     this.setState({selectedRace: event.target.value});
+    this.state.character.setRace(event.target.value);
+    this.state.character.getNewRaceData();
   }
 
   classHandler(event) {
     if (event.target.value === '') return;
     this.setState({selectedClass: event.target.value});
+    this.state.character.setClass(event.target.value);
+    this.state.character.getNewClassData();
   }
 
   alignmentHandler(event) {
     if (event.target.value === '') return;
     this.setState({selectedAlignment: event.target.value});
+    this.state.character.getAlignment(event.target.value);
   }
 
   levelHandler(event) {
+    if (event.target.value > 20 || event.target.value < 1) return;
     this.setState({selectedAlignment: event.target.value});
+    this.state.character.setLevel(event.target.value);
+    this.state.character.getNewLevelData();
   }
 
   skillsCheckboxHandler(event) {
@@ -85,16 +97,19 @@ class CharacterSheetComponent extends Component {
     }
 
     this.setState({selectedSkills: tmp});
+    this.state.character.calculateSkills(this.state.selectedSkills);
   }
 
   statsHandler(event) {
     let tmp = this.state.selectedStats;
     tmp[event.target.name] = event.target.value;
     this.setState({selectedStats: tmp});
+    this.state.character.calculateStats(this.state.selectedStats);
   }
 
   hpHandler(event) {
     this.setState({currentHp: event.target.value});
+    this.state.character.setCurrentHp(event.target.value);
   }
 
   render() {
@@ -107,91 +122,23 @@ class CharacterSheetComponent extends Component {
               <td colSpan='3'><input type='text' /></td>
             </tr>
             <tr>
-              <td>Race: <select name='race'>{this.createRaceOptions()}</select></td>
-              <td>Class: <select name='class'>{this.createClassOptions()}</select></td>
-              <td>Alignment: <select name='alignment'>{this.createAlignmentOptions()}</select></td>
-              <td>Level: <input name='level' type='number' /></td>
+              <td>Race: <select name='race' onChange={this.raceHandler.bind(this)}>{this.createRaceOptions()}</select></td>
+              <td>Class: <select name='class' onChange={this.classHandler.bind(this)}>{this.createClassOptions()}</select></td>
+              <td>Alignment: <select name='alignment' onChange={this.alignmentHandler.bind(this)}>{this.createAlignmentOptions()}</select></td>
+              <td>Level: <input name='level' type='number' onChange={this.levelHandler.bind(this)} min='1' max='20'/></td>
             </tr>
             <tr>
               <td>HP</td>
-              <td><input name='hp' type='number' />/[max hp here]</td>
-              <td>[Initiative]</td>
-              <td>[speed]</td>
+              <td><input name='hp' type='number' />/{this.state.character.getMaxHp()}</td>
+              <td>Initiative: {this.state.character.getInitiative()}</td>
+              <td>Speed: {this.state.character.getSpeed()}</td>
             </tr>
             <tr>
               <td colSpan='2'>
-                <h3>Stats</h3>
-                <table>
-                  <tbody>
-                    <tr><td>STR</td><td><input name='str' type='number' onChange={this.statsHandler.bind(this)}/></td></tr>
-                    <tr><td>DEX</td><td><input name='dex' type='number' onChange={this.statsHandler.bind(this)}/></td></tr>
-                    <tr><td>CON</td><td><input name='con' type='number' onChange={this.statsHandler.bind(this)}/></td></tr>
-                    <tr><td>INT</td><td><input name='int' type='number' onChange={this.statsHandler.bind(this)}/></td></tr>
-                    <tr><td>WIS</td><td><input name='wis' type='number' onChange={this.statsHandler.bind(this)}/></td></tr>
-                    <tr><td>CHA</td><td><input name='cha' type='number' onChange={this.statsHandler.bind(this)}/></td></tr>
-                  </tbody>
-                </table>
+                <CharacterStatsComponent character={this.state.character} handler={this.statsHandler.bind(this)} />
               </td>
               <td colSpan='2'>
-                <h3>Skills</h3>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td><input type='checkbox' value={globals.skillNames[0]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Acrobatics</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[9]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Medicine</td><td>[value here]</td>
-                    </tr>
-                    <tr>
-                      <td><input type='checkbox' value={globals.skillNames[1]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Animal Handling</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[10]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Nature</td><td>[value here]</td>
-                    </tr>
-                    <tr>
-                      <td><input type='checkbox' value={globals.skillNames[2]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Arcana</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[11]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Perception</td><td>[value here]</td>
-                    </tr>
-                    <tr>
-                      <td><input type='checkbox' value={globals.skillNames[3]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Athletics</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[12]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Performance</td><td>[value here]</td>
-                    </tr>
-                    <tr>
-                      <td><input type='checkbox' value={globals.skillNames[4]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Deception</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[13]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Persuasion</td><td>[value here]</td>
-                    </tr>
-                    <tr>
-                      <td><input type='checkbox' value={globals.skillNames[5]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>History</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[14]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Religion</td><td>[value here]</td>
-                    </tr>
-                    <tr>
-                      <td><input type='checkbox' value={globals.skillNames[6]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Insight</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[15]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Sleight Of Hand</td><td>[value here]</td>
-                    </tr>
-                    <tr>
-                      <td><input type='checkbox' value={globals.skillNames[7]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Intimidation</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[16]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Stealth</td><td>[value here]</td>
-                    </tr>
-                    <tr>
-                      <td><input type='checkbox' value={globals.skillNames[8]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Investigation</td><td>[value here]</td>
-                      <td><input type='checkbox' value={globals.skillNames[17]} onClick={this.skillsCheckboxHandler.bind(this)}/></td>
-                      <td>Survival</td><td>[value here]</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <CharacterSkillsComponent character={this.state.character} handler={this.skillsCheckboxHandler.bind(this)} />
               </td>
             </tr>
           </tbody>
