@@ -136,10 +136,13 @@ class SearchController extends Component {
       <div>
         <h1>Search</h1>
         <br />
-        <SearchInput searchCallback={this.searchOnClickCallback.bind(this)} 
-          categoryChangeCallback={this.handleCategoryChange.bind(this)} 
-          valueChangeCallback={this.handleValueChange.bind(this)} />
-        {this.state.searchResults}
+        <div className="popup">
+            <SearchInput searchCallback={this.searchOnClickCallback.bind(this)} 
+              categoryChangeCallback={this.handleCategoryChange.bind(this)} 
+              valueChangeCallback={this.handleValueChange.bind(this)} />
+            <br/>
+            {this.state.searchResults}
+        </div>
       </div>
     );
   }

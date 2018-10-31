@@ -92,6 +92,13 @@ table {
     width: 100%;
 }
 
+td {
+  width: 20%;
+}
+td+td {
+  width: auto;
+}
+
 .aContent {
     width: 20%;
     background-color: #662F00;
