@@ -77,16 +77,21 @@ p {
     box-shadow: 5px 5px 20px grey;
 }
 
+.halfWidth {
+    width: 50%;
+}
+
 form {
     width:100%; 
     margin:0 auto;
 }
-input[type=number], input[type=search], select {
-    width: 15%;
+input[type=number], input[type=search], input[type=text], select {
+    width: 80%;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    text-align: center;
 }
 
 input[type=submit] {
@@ -100,7 +105,37 @@ input[type=submit] {
     text-shadow: 2px 2px 10px black;
 }
 
-input[type=submit]:hover {
+button {
+    width: 20%;
+    background-color: #662F00;
+    color: #0096B2;
+    padding: 1% 1%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-shadow: 2px 2px 10px black;
+    margin: 1% 1%
+}
+
+.healthInput {
+    width: 40%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.floatCenter {
+    text-align: center;
+    display: flex;
+}
+
+.overflowBlock {
+    clear: both;
+    text-align: center;
+}
+
+input[type=submit]:hover, button:hover {
     background-color: #0096B2;
     color: #662F00;
     text-shadow: none;

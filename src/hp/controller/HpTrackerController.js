@@ -85,14 +85,23 @@ class HpTrackerController extends Component {
     return (
       <div>
         <h1>Hp Tracker</h1>
-        <div>
-          <h3>Name</h3>
-          <input type='text' onChange={this.nameTextBoxListener.bind(this)} />
-          <h3>Health</h3>
-          <input type='number' onChange={this.healthTextBoxListener.bind(this)} />
-          <br />
-          <button type='button' onClick={this.addNewUnit.bind(this)}>Add Unit</button>
+        <div className = "popup">
+            <div className="floatCenter">
+                <div className="halfWidth">
+                    <h3><label>Name</label></h3>
+                    <input type='text' onChange={this.nameTextBoxListener.bind(this)} />
+                </div>
+                <div className="halfWidth">
+                    <h3><label>Health</label></h3>
+                    <input type='number' onChange={this.healthTextBoxListener.bind(this)} />
+                </div>
+            </div>
+            <br/>
+            <div className="overflowBlock">
+                <button type='button' onClick={this.addNewUnit.bind(this)}>Add Unit</button>
+            </div>
         </div>
+        <br/>
         <div>
           {unitFrames}
         </div>
