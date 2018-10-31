@@ -81,6 +81,36 @@ p {
     width: 50%;
 }
 
+.centerPopup {
+    background-color: #FFF5ED;
+    padding: 2.5%;
+    box-shadow: 5px 5px 20px grey;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+}
+
+.aContent {
+    width: 20%;
+    background-color: #662F00;
+    color: #0096B2;
+    padding: 1% 5%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-shadow: 2px 2px 10px black;
+    text-decoration: none;
+}
+
+.aContent:hover {
+    background-color: #0096B2;
+    color: #662F00;
+    text-shadow: none;
+
+}
+
 form {
     width:100%; 
     margin:0 auto;
