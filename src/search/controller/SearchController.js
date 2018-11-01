@@ -49,7 +49,7 @@ class SearchController extends Component {
     filteredNames.forEach(element => {
       // Make a request and append it to an array
       promises.push(
-        fetch(globals.corsBypass + element.url).then(res => {
+        fetch(globals.urls.cors + element.url).then(res => {
           return res.json(); 
         }).then(data => {
           return data;
@@ -98,7 +98,7 @@ class SearchController extends Component {
     if (this.state.searchValue === '') return;
 
     // Root of request
-    let request = globals.corsBypass + globals.apiEndpoint + this.state.searchCategory;
+    let request = globals.urls.cors + globals.urls.api + this.state.searchCategory;
 
     // Default callbacks
     let requestCallback = data => { console.log(data); };

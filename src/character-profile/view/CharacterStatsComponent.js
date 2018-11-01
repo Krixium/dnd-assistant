@@ -14,7 +14,7 @@ class CharacterStatsComponent extends Component {
   }
 
   render() {
-    const rows = globals.strings.attr.map(a => this.generateRow(a));
+    const rows = globals.attr.map(a => this.generateRow(a));
 
     return (
       <div>

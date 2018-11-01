@@ -1,32 +1,5 @@
 import globals from 'res/globals.js';
 
-const raceUrls = {
-  dwarf: 'http://www.dnd5eapi.co/api/races/1',
-  elf: 'http://www.dnd5eapi.co/api/races/2',
-  halfling: 'http://www.dnd5eapi.co/api/races/3',
-  human: 'http://www.dnd5eapi.co/api/races/4',
-  dragonborn: 'http://www.dnd5eapi.co/api/races/5',
-  gnome: 'http://www.dnd5eapi.co/api/races/6',
-  halfElf: 'http://www.dnd5eapi.co/api/races/7',
-  halfOrc: 'http://www.dnd5eapi.co/api/races/8',
-  tiefling: 'http://www.dnd5eapi.co/api/races/9'
-};
-
-const classUrls = {
-  barbarian: 'http://www.dnd5eapi.co/api/classes/1',
-  bard: 'http://www.dnd5eapi.co/api/classes/2',
-  cleric: 'http://www.dnd5eapi.co/api/classes/3',
-  druid: 'http://www.dnd5eapi.co/api/classes/4',
-  fighter: 'http://www.dnd5eapi.co/api/classes/5',
-  monk: 'http://www.dnd5eapi.co/api/classes/6',
-  paladin: 'http://www.dnd5eapi.co/api/classes/7',
-  ranger: 'http://www.dnd5eapi.co/api/classes/8',
-  rogue: 'http://www.dnd5eapi.co/api/classes/9',
-  sorcerer: 'http://www.dnd5eapi.co/api/classes/10',
-  warlock: 'http://www.dnd5eapi.co/api/classes/11',
-  wizard: 'http://www.dnd5eapi.co/api/classes/12'
-}
-
 class Character {
   name = '';
   class = '';
@@ -69,6 +42,7 @@ class Character {
   setLevel(level) { this.level = level; }
   getLevel() { return this.level; }
   setSpells(selecteSpells) { this.spells = selecteSpells; }
+  getSpells() { return this.spells; }
   setCurrentHp(value) { this.hp.current = value; }
   getCurrentHp() { return this.hp.current; }
   getMaxHp() { return this.hp.total; }
@@ -76,9 +50,10 @@ class Character {
   getSpeed() { return this.speed; }
   getStats() { return this.stats; }
   getSkills() { return this.skills; }
+  getAC() { return this.ac; }
 
   getNewClassData() {
-    fetch(globals.corsBypass + classUrls[this.class])
+    fetch(globals.urls.cors + globals.urls.classes[this.class])
       .then(res => res.json())
       .then(data => {
         this.buffers.classData = data;
@@ -88,7 +63,7 @@ class Character {
   }
 
   getNewRaceData() {
-    fetch(globals.corsBypass + raceUrls[this.race])
+    fetch(globals.urls.cors + globals.urls.races[this.race])
       .then(res => res.json())
       .then(data => {
         this.buffers.raceData = data;
@@ -99,7 +74,7 @@ class Character {
 
   getNewLevelData() {
     if (this.class === '') return;
-    fetch(globals.corsBypass + globals.apiEndpoint + 'classes/' + this.class + '/level/' + this.level)
+    fetch(globals.urls.cors + globals.urls.api + 'classes/' + this.class + '/level/' + this.level)
       .then(res => res.json())
       .then(data => { 
         this.buffers.levelData = data;
@@ -171,6 +146,14 @@ class Character {
 
   calculateModifier(stat) {
     return Math.floor((stat - 10) / 2);
+  }
+
+  addSpell(spell) {
+    this.spells.push(spell);
+    this.spells.sort((a, b) => {
+      if (a.level !== b.level) return a.level - b.level;
+      else return a.name.localeCompare(b.name);
+    });
   }
 }
 
