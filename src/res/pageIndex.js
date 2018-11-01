@@ -6,6 +6,7 @@ import Home from 'home/view/home.js';
 import HpTrackerController from 'hp/controller/HpTrackerController';
 import CombatLogController from 'combat-log/controller/CombatLogController.js';
 import SearchController from 'search/controller/SearchController.js';
+import DiceRollerController from 'dice-roller/controller/DiceRollerController.js';
 
 const pageIndex = {
   home: {
@@ -16,7 +17,7 @@ const pageIndex = {
   dice: {
     name: 'Dice Roller',
     link: '/dice',
-    component: (props) => <h1>Dice Roller</h1>
+    component: DiceRollerController
   },
   hp: {
     name: 'HP Tracker',

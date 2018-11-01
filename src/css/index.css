@@ -118,10 +118,10 @@ td+td {
 
 }
 
-form {
-    width:100%; 
-    margin:0 auto;
+.fullWidth {
+    width: 100%
 }
+
 input[type=number], input[type=search], input[type=text], select {
     width: 80%;
     display: inline-block;
@@ -129,17 +129,6 @@ input[type=number], input[type=search], input[type=text], select {
     border-radius: 4px;
     box-sizing: border-box;
     text-align: center;
-}
-
-input[type=submit] {
-    width: 8%;
-    background-color: #662F00;
-    color: #0096B2;
-    padding: 1% 1%;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-shadow: 2px 2px 10px black;
 }
 
 button {
