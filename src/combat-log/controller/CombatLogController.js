@@ -35,11 +35,13 @@ class CombatLogController extends Component {
       <div>
         <h1>Combat Log</h1>
         <br />
-        <a href={this.generateDownloadString()} download={'combat-log-' + this.generateDateString() + '.txt'}>Download</a>
-        <button onClick={this.clearLog.bind(this)}>Clear Log</button>
-        <LogTableComponent>
-          {rows}
-        </LogTableComponent>
+          <div className="centerPopup">
+            <a className="aContent" href={this.generateDownloadString()} download={'combat-log-' + this.generateDateString() + '.txt'}>Download</a>
+            <button onClick={this.clearLog.bind(this)}>Clear Log</button>
+            <LogTableComponent>
+              {rows}
+            </LogTableComponent>
+          </div>
       </div>
     );
   }

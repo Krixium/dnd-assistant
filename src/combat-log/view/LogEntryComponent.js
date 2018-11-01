@@ -4,7 +4,7 @@ class LogEntryComponent extends Component {
   render() {
     return (
       <tr>
-        <td>{this.props.name}</td>
+        <td className="halfWidth">{this.props.name}</td>
         <td>{this.props.delta}</td>
       </tr>
     );
