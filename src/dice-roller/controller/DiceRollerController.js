@@ -29,7 +29,7 @@ class DiceRollerController extends Component {
 
   addNewResults() {
     let str = this.state.diceBuffer;
-    let separators = ['d', '\\\+', "(?=-)"];
+    let separators = ['d', '\\+', "(?=-)"];
     let stringArray = str.split(new RegExp(separators.join('|'), 'g'));
     let numberOfDice = 0;
     let diceMax = 0;
