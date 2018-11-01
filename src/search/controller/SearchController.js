@@ -10,10 +10,7 @@ import FeaturesComponent from 'search/view/FeaturesComponent.js';
 import EquipmentComponent from 'search/view/EquipmentComponent.js';
 import MonsterComponent from 'search/view/MonsterComponent.js';
 
-// API endpoints
-const corsBypass = 'https://arcane-thicket-21938.herokuapp.com/';
-const apiEndpoint = 'http://dnd5eapi.co/api/';
-
+import globals from 'res/globals.js';
 
 class SearchController extends Component {
   constructor(props) {
@@ -52,7 +49,7 @@ class SearchController extends Component {
     filteredNames.forEach(element => {
       // Make a request and append it to an array
       promises.push(
-        fetch(corsBypass + element.url).then(res => {
+        fetch(globals.urls.cors + element.url).then(res => {
           return res.json(); 
         }).then(data => {
           return data;
@@ -101,7 +98,7 @@ class SearchController extends Component {
     if (this.state.searchValue === '') return;
 
     // Root of request
-    let request = corsBypass + apiEndpoint + this.state.searchCategory;
+    let request = globals.urls.cors + globals.urls.api + this.state.searchCategory;
 
     // Default callbacks
     let requestCallback = data => { console.log(data); };
