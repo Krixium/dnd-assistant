@@ -373,7 +373,7 @@ const globals = {
     'Performance',
     'Persuasion',
     'Religion',
-    'SleightOfHand',
+    'Sleight Of Hand',
     'Stealth',
     'Survival'
   ],
@@ -387,7 +387,29 @@ const globals = {
     'Chaotic Good',
     'Chaotic Neutral',
     'Chaotic Evil'
-  ]
+  ],
+  armor: {
+    type: [
+      'No Armor',
+      'Leather Armor',
+      'Chain Shirt',
+      'Plate Mail',
+      'Mage Armor',
+      'Barbarian Unarmored',
+      'Monk Unarmored',
+      'Sorcerer Draconic Resilience'
+    ],
+    bonuses: [
+      'Shield',
+      'Shield of Faith',
+      'Shield Spell',
+      'Half Cover',
+      'Three-Quarters Cover',
+      '+1 Armor',
+      'Ring of Protection',
+      'Bracers of Defence',
+    ]
+  }
 }
 
 export default globals;
