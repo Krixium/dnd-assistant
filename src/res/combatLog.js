@@ -1,5 +1,6 @@
 const CombatLog = {
-  log: []
+  log: [],
+  units: []
 }
 
 export default CombatLog;
