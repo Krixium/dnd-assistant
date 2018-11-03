@@ -4,10 +4,10 @@ class CombatUnit {
   maxHealth = 0;
   buffer = '';
 
-  constructor(name, health) {
+  constructor(name, current, max) {
     this.name = name;
-    this.health = parseInt(health);
-    this.maxHealth = parseInt(health);
+    this.health = parseInt(current);
+    this.maxHealth = parseInt(max);
   }
 
   getName() {
