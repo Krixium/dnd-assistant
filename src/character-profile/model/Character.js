@@ -27,9 +27,14 @@ class Character {
     'Religion': 0,
     'Sleight Of Hand': 0,
     'Stealth': 0,
-    'Survival': 0
+    'Survival': 0,
+    selected: []
   };
-  ac = 0;
+  ac = {
+    value: 0,
+    type: '',
+    bonus: ''
+  };
   initiative = 0;
   speed = 0;
   hp = { total: 0, current: 0 };
@@ -42,6 +47,33 @@ class Character {
     raceData: { ability_bonuses: [0, 0, 0, 0, 0, 0], traits: [] }, 
     levelData: { prof_bonus: 2 },
     baseStats: { str: 0, dex: 0, con: 0, wis: 0, int: 0, cha: 0 }
+  }
+
+  constructor(parent, save) {
+    if (save !== undefined) {
+      this.name = save.name;
+      this.class = save.class;
+      this.race = save.race;
+      this.alignment = save.alignment;
+      this.level = save.level;
+      this.stats = save.stats;
+      this.proficiency = save.proficiency;
+      this.skills = save.skills;
+      this.ac = save.ac;
+      this.initiative = save.initiative;
+      this.speed = save.speed;
+      this.hp = save.hp;
+      this.items = save.items;
+      this.traits = save.traits;
+      this.spells = save.spells;
+      this.buffers = save.buffers;
+    }
+
+    if (parent !== undefined) {
+      this.parent = parent;
+      this.parent.setState({ selectedSkills: this.skills.selected });
+      this.parent.forceUpdate();
+    }
   }
 
   setParent(parent) { this.parent = parent; }
@@ -64,7 +96,9 @@ class Character {
   getSpeed() { return this.speed; }
   getStats() { return this.stats; }
   getSkills() { return this.skills; }
-  getAC() { return this.ac; }
+  getAc() { return this.ac.value; }
+  getAcType() { return this.ac.type; }
+  getAcBonus() { return this.ac.bonus; }
   getTraits() { return this.traits; }
   setTraits() { this.traits = this.buffers.raceData.traits.map(trait => trait.name); }
 
@@ -120,6 +154,7 @@ class Character {
   }
 
   calculateSkills(selectedSkills) {
+    this.skills.selected = selectedSkills;
     this.skills['Acrobatics'] = this.calculateModifier(this.stats.dex);
     this.skills['Animal Handling'] = this.calculateModifier(this.stats.wis);
     this.skills['Arcana'] = this.calculateModifier(this.stats.int);
@@ -139,75 +174,77 @@ class Character {
     this.skills['Stealth'] = this.calculateModifier(this.stats.dex);
     this.skills['Survival'] = this.calculateModifier(this.stats.wis);
 
-    selectedSkills.forEach(skill => {
+    this.skills.selected.forEach(skill => {
       this.skills[skill] += this.proficiency;
     });
   }
 
   calculateAc(armor) {
+    this.ac.type = armor.type;
+    this.ac.bonus = armor.bonus;
     const dexMod = this.calculateModifier(this.stats.dex);
-    switch (armor.type) {
+    switch (this.ac.type) {
       case globals.armor.type[0]: 
         // No armor
-        this.ac = 10 + dexMod;
+        this.ac.value = 10 + dexMod;
         break;
       case globals.armor.type[1]: 
         // Leather
-        this.ac = 11 + dexMod;
+        this.ac.value = 11 + dexMod;
         break;
       case globals.armor.type[2]:
         // Chain
-        this.ac = 13 + Math.min(2, dexMod);
+        this.ac.value = 13 + Math.min(2, dexMod);
         break;
       case globals.armor.type[3]:
         // Plate
-        this.ac = 18;
+        this.ac.value = 18;
         break;
       case globals.armor.type[4]:
         // Mage
-        this.ac = 13 + dexMod;
+        this.ac.value = 13 + dexMod;
         break;
       case globals.armor.type[5]:
         // Barbarian
-        this.ac = 10 + dexMod + this.calculateModifier(this.stats.con);
+        this.ac.value = 10 + dexMod + this.calculateModifier(this.stats.con);
         break;
       case globals.armor.type[6]:
         // Monk
-        this.ac = 10 + dexMod + this.calculateModifier(this.stats.wis);
+        this.ac.value = 10 + dexMod + this.calculateModifier(this.stats.wis);
         break;
       case globals.armor.type[7]:
         // Sorcerer
-        this.ac = 13 + dexMod;
+        this.ac.value = 13 + dexMod;
         break;
       default:
-        this.ac = 10;
+        this.ac.value = 10;
         break;
     }
 
-    switch (armor.bonus) {
+    switch (this.ac.bonus) {
       case globals.armor.bonuses[0]:
       case globals.armor.bonuses[1]:
       case globals.armor.bonuses[3]:
         // Shield
         // Shield of Faith
         // Half cover
-        this.ac += 2;
+        this.ac.value += 2;
         break;
       case globals.armor.bonuses[2]:
       case globals.armor.bonuses[4]:
         // Spell Shield
         // 3/4 cover
-        this.ac += 5;
+        this.ac.value += 5;
         break;
       case globals.armor.bonuses[5]:
       case globals.armor.bonuses[6]:
         // +1
         // ring
-        this.ac += 1;
+        this.ac.value += 1;
         break;
       case globals.armor.bonuses[7]:
         // bracers
-        this.ac += 3;
+        this.ac.value += 3;
         break;
       default:
         break;
