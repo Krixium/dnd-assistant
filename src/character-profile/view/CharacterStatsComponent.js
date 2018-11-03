@@ -5,9 +5,10 @@ import globals from 'res/globals.js';
 class CharacterStatsComponent extends Component {
   generateRow(attr) {
     const display = attr.toUpperCase();
+    const stats = this.props.character.getStats();
     return (
       <tr key={attr}>
-        <td>{display}</td><td><input name={attr} type='number' onChange={this.props.handler}/>{this.props.character.getStats()[attr]}</td>
+        <td>{display}</td><td><input name={attr} type='number' onChange={this.props.handler}/>{stats[attr]}</td>
         <td>{this.props.character.calculateModifier(this.props.character.getStats()[attr])}</td>
       </tr>
     );

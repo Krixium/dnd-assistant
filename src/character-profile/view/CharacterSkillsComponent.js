@@ -8,10 +8,10 @@ class CharacterSkillsComponent extends Component {
     const attr1 = globals.skills[index];
     const attr2 = globals.skills[index + 9];
     const skills = this.props.character.getSkills();
-    tds.push(<td key='0'><input type='checkbox' value={attr1} onClick={this.props.handler}/></td>)
+    tds.push(<td key='0'><input type='checkbox' value={attr1} readOnly checked={skills.selected.indexOf(attr1) > -1} onClick={this.props.handler}/></td>)
     tds.push(<td key='1'>{globals.skills[index]}</td>);
     tds.push(<td key='2'>{skills[attr1]}</td>);
-    tds.push(<td key='3'><input type='checkbox' value={attr2} onClick={this.props.handler}/></td>)
+    tds.push(<td key='3'><input type='checkbox' value={attr2} readOnly checked={skills.selected.indexOf(attr2) > -1} onClick={this.props.handler}/></td>)
     tds.push(<td key='4'>{globals.skills[index + 9]}</td>);
     tds.push(<td key='5'>{skills[attr2]}</td>);
     return (
