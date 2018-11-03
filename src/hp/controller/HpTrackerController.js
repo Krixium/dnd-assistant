@@ -18,11 +18,16 @@ class HpTrackerController extends Component {
   constructor(props) {
     super(props);
 
+    if (CombatLog.units.length !== 0) {
+      HpTrackerState.units = CombatLog.units.map(unit => new CombatUnit(unit.name, unit.health, unit.maxHealth));
+    }
+
     this.state = HpTrackerState;
   }
 
   componentWillUnmount() {
     HpTrackerState = this.state;
+    CombatLog.units = this.state.units;
   }
 
   nameTextBoxListener(event) {
@@ -45,7 +50,7 @@ class HpTrackerController extends Component {
 
   addNewUnit() {
     let newUnits = this.state.units;
-    newUnits.push(new CombatUnit(this.state.nameBuffer, this.state.healthBuffer));
+    newUnits.push(new CombatUnit(this.state.nameBuffer, this.state.healthBuffer, this.state.healthBuffer));
     this.setState({units: newUnits});
   }
 

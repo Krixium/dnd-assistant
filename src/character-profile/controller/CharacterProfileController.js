@@ -278,7 +278,7 @@ class CharacterProfileController extends Component {
                   multiple={false}
                   minFileSize={0}
                   clickable>
-                  Drop files here or click to upload
+                  Drop files here or click to load character
                 </File>
               </td>
             </tr>
