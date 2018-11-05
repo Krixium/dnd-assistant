@@ -110,7 +110,9 @@ class CharacterProfileController extends Component {
 
   statsHandler(event) {
     let tmp = this.state.selectedStats;
-    tmp[event.target.name] = event.target.value;
+    const value = event.target.value;
+    const stat = event.target.name;
+    value === '' ? tmp[stat] = 0 : tmp[stat] = value;
     this.setState({ selectedStats: tmp });
     this.state.character.calculateStats(this.state.selectedStats);
   }
