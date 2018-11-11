@@ -7,7 +7,7 @@ class CharacterSpellComponent extends Component {
   generateSpellsRows() {
     return this.props.character.getSpells().map((spell) => {
       return (
-        <tr key={spell.name}>
+        <tr key={spell.name} className='centerText'>
           <td>{spell.level}</td>
           <td>{spell.name}</td>
           <td>{spell.range}</td>
@@ -45,7 +45,7 @@ class CharacterSpellComponent extends Component {
               <th>Range</th>
               <th>Components</th>
               <th>Cast Time</th>
-              <th>Concentraition?</th>
+              <th>Concentration?</th>
             </tr>
             {this.generateSpellsRows()}
             <tr>

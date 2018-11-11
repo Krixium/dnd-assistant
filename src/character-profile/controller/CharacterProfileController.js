@@ -173,106 +173,103 @@ class CharacterProfileController extends Component {
     return (
       <div>
         <h1>Character Profile</h1>
-        <table>
-          <tbody>
-            <tr>
-              <td><h2>Name</h2></td>
-              <td colSpan='3'>
-                <input type='text' 
-                  onChange={this.nameHandler.bind(this)} 
-                  value={this.state.character.getName()} />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Race: 
-                <select 
-                  name='race' 
-                  onChange={this.raceHandler.bind(this)} 
-                  value={this.state.character.getRace()}>
-                  {this.createRaceOptions()}
-                </select>
-              </td>
-              <td>
-                Class:
-                <select 
-                  name='class' 
-                  onChange={this.classHandler.bind(this)} 
-                  value={this.state.character.getClass()}>
-                  {this.createClassOptions()}
-                </select>
-              </td>
-              <td>
-                Alignment:
-                <select 
-                  name='alignment' 
-                  onChange={this.alignmentHandler.bind(this)} 
-                  value={this.state.character.getAlignment()}>
-                  {this.createAlignmentOptions()}
-                </select>
-              </td>
-              <td>
-                Level:
-                <input 
-                  name='level' 
-                  onChange={this.levelHandler.bind(this)} 
-                  value={this.state.character.getLevel()}
-                  type='number' 
-                  min='1' max='20' />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                HP
-                <input 
-                  name='hp' 
-                  onChange={this.hpHandler.bind(this)}
-                  type='number'
-                  value={this.state.character.getCurrentHp()}/>
-                /{this.state.character.getMaxHp()}
-              </td>
-              <td>
-                AC:
-                <select 
-                  onChange={this.armorTypeHandler.bind(this)}
-                  value={this.state.character.getAcType()} >
-                  <option />
-                  {globals.armor.type.map(type => <option key={type} value={type}>{type}</option>)}
-                </select>
-                <select 
-                  onChange={this.armorBonusHandler.bind(this)}
-                  value={this.state.character.getAcBonus()}>
-                  <option />
-                  {globals.armor.bonuses.map(bonus => <option key={bonus} value={bonus}>{bonus}</option>)}
-                </select>
-                {this.state.character.getAc()}
-              </td>
-              <td>Initiative: {this.state.character.getInitiative()}</td>
-              <td>Speed: {this.state.character.getSpeed()}</td>
-            </tr>
-            <tr>
-              <td colSpan='2'>
-                <CharacterStatsComponent character={this.state.character} handler={this.statsHandler.bind(this)} />
-              </td>
-              <td colSpan='2'>
-                <CharacterSkillsComponent character={this.state.character} handler={this.skillsCheckboxHandler.bind(this)} />
-              </td>
-            </tr>
-            <tr>
-              <td colSpan='3'>
-                <CharacterSpellComponent character={this.state.character} 
-                  optionHandler={this.spellOptionHandler.bind(this)} 
-                  addOnClick={this.addSpellHandler.bind(this)} />
-              </td>
-              <td>
-                <ul>
-                  {this.state.character.getTraits().map(trait => <li key={trait}>{trait}</li>)}
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <td><button onClick={this.saveHandler.bind(this)}>Save</button></td>
-              <td>
+        <br/>
+        <div className="popup">
+            <table>
+              <tbody>
+                <tr>
+                  <td><h2>Name</h2></td>
+                  <td colSpan='3'>
+                    <input type='text' 
+                      onChange={this.nameHandler.bind(this)} 
+                      value={this.state.character.getName()} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Race: 
+                    <select 
+                      name='race' 
+                      onChange={this.raceHandler.bind(this)} 
+                      value={this.state.character.getRace()}>
+                      {this.createRaceOptions()}
+                    </select>
+                  </td>
+                  <td>
+                    Class:
+                    <select 
+                      name='class' 
+                      onChange={this.classHandler.bind(this)} 
+                      value={this.state.character.getClass()}>
+                      {this.createClassOptions()}
+                    </select>
+                  </td>
+                  <td>
+                    Alignment:
+                    <select 
+                      name='alignment' 
+                      onChange={this.alignmentHandler.bind(this)} 
+                      value={this.state.character.getAlignment()}>
+                      {this.createAlignmentOptions()}
+                    </select>
+                  </td>
+                  <td>
+                    Level:
+                    <input 
+                      name='level' 
+                      onChange={this.levelHandler.bind(this)} 
+                      value={this.state.character.getLevel()}
+                      type='number' 
+                      min='1' max='20' />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    HP
+                    <input 
+                      name='hp' 
+                      onChange={this.hpHandler.bind(this)}
+                      type='number'
+                      value={this.state.character.getCurrentHp()}/>
+                    /{this.state.character.getMaxHp()}
+                  </td>
+                  <td>
+                    AC:
+                    <select 
+                      onChange={this.armorTypeHandler.bind(this)}
+                      value={this.state.character.getAcType()} >
+                      <option />
+                      {globals.armor.type.map(type => <option key={type} value={type}>{type}</option>)}
+                    </select>
+                    <select 
+                      onChange={this.armorBonusHandler.bind(this)}
+                      value={this.state.character.getAcBonus()}>
+                      <option />
+                      {globals.armor.bonuses.map(bonus => <option key={bonus} value={bonus}>{bonus}</option>)}
+                    </select>
+                    {this.state.character.getAc()}
+                  </td>
+                  <td>Initiative: {this.state.character.getInitiative()}</td>
+                  <td>Speed: {this.state.character.getSpeed()}</td>
+                </tr>
+                <tr>
+                  <td colSpan='2'>
+                    <CharacterStatsComponent character={this.state.character} handler={this.statsHandler.bind(this)} />
+                  </td>
+                  <td colSpan='2'>
+                    <CharacterSkillsComponent character={this.state.character} handler={this.skillsCheckboxHandler.bind(this)} />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <CharacterSpellComponent character={this.state.character} 
+              optionHandler={this.spellOptionHandler.bind(this)} 
+              addOnClick={this.addSpellHandler.bind(this)} />
+            <ul>
+              {this.state.character.getTraits().map(trait => <li key={trait}>{trait}</li>)}
+            </ul>
+            <div className='floatCenter'>
+                <button onClick={this.saveHandler.bind(this)}>Save</button>
                 <File
                   onChange={this.fileSelectHandler.bind(this)} 
                   onError={(error, file) => console.log(error, file)}
@@ -282,10 +279,8 @@ class CharacterProfileController extends Component {
                   clickable>
                   Drop files here or click to load character
                 </File>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+            </div>
+        </div>
       </div>
     );
   }

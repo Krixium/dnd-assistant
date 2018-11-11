@@ -67,7 +67,7 @@ h2, h2 a{
     text-decoration: none;
 }
 
-p {
+.centerText, p {
     text-align: center;
 }
 
@@ -122,13 +122,17 @@ td+td {
     width: 100%
 }
 
-input[type=number], input[type=search], input[type=text], select {
-    width: 80%;
+input, select {
+    width: 100%;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     text-align: center;
+}
+
+table input {
+    width: 90%;
 }
 
 button {
