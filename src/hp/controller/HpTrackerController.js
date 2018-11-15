@@ -90,6 +90,7 @@ class HpTrackerController extends Component {
     return (
       <div>
         <h1>Hp Tracker</h1>
+        <br/>
         <div className = "popup">
             <div className="floatCenter">
                 <div className="halfWidth">
