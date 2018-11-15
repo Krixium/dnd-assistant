@@ -5,10 +5,15 @@ class ResultFrameComponent extends Component {
     return (
       <div>
         <div className="popup">
-            <h2>{this.props.data.getDice()}</h2>
-            <p>Result: {this.props.data.getResult()}</p>
-            <br/>
-            <button type='button' onClick={this.props.removeCallback}>Remove</button>
+            <div className="floatCenter">
+              <button type='button' onClick={this.props.removeCallback}>Remove</button>
+              <div className="halfWidthVertCenter">
+                <h2>{this.props.data.getDice()}</h2>
+              </div>
+              <div className="halfWidthVertCenter">
+                <h3>Result: {this.props.data.getResult()}</h3>
+              </div>
+            </div>
         </div>
         <br/>
       </div>
