@@ -18,6 +18,9 @@ body {
     display: none; 
 }
 
+.files-dropzone {
+    cursor: pointer;
+}
 
 #navbar a {
     display: block;
