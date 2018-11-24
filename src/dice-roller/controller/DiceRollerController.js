@@ -13,6 +13,11 @@ let ResultTrackerState = {
 };
 
 class DiceRollerController extends Component {
+  
+  static get inputPlaceholder() {
+    return '[0-100]d[1-100]+/-[modifier]';
+  }
+
   constructor(props) {
     super(props);
 
@@ -78,7 +83,7 @@ class DiceRollerController extends Component {
         <h1>Dice Roller</h1>
         <br/>
         <div className = "popup">
-            <input type="text" className="fullWidth" onChange={this.diceTextBoxListener.bind(this)} placeholder="[0-100]d[1-100]+/-[modifier]"/>
+            <input type="text" className="fullWidth" onChange={this.diceTextBoxListener.bind(this)} placeholder={DiceRollerController.inputPlaceholder} />
             <br/>
             <button type="button" onClick={this.addNewResults.bind(this)}>Roll</button>
         </div>
