@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "file-saver": "^2.0.0-rc.4",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-files": "^2.4.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.5"
@@ -25,7 +27,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "chromedriver": "^2.43.1",
+    "geckodriver": "^1.12.2",
     "jest": "^23.6.0",
-    "react-test-renderer": "^16.6.0"
+    "jest-dom": "^2.1.0",
+    "react-testing-library": "^5.2.3",
+    "selenium-webdriver": "^4.0.0-alpha.1"
   }
 }

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import saveAs from 'file-saver';
+import File from 'react-files';
 
 // Components
 import LogTableComponent from 'combat-log/view/LogTableComponent.js';
@@ -11,17 +13,26 @@ class CombatLogController extends Component {
 
   generateDateString() {
     const date = new Date();
-    return '' + date.getUTCFullYear() + (date.getMonth() + 1) + date.getDate() + '-' 
+    return '' + date.getUTCFullYear() + (date.getMonth() + 1) + date.getDate() + '-'
       + date.getHours() + date.getMinutes() + date.getSeconds();
   }
 
-  generateDownloadString() {
-    let data = []; 
-    if (CombatLog.log.length !== 0) {
-      data = CombatLog.log.map(entry =>entry.name + '\t' + entry.delta + '\n').reduce((prev, curr) => prev += curr);
-    }
+  saveHandler() {
+    const text = JSON.stringify(CombatLog);
+    const filename = this.generateDateString() + '.json';
+    const blob = new Blob([text], { type: 'application/json; charset=utf-8' });
+    saveAs(blob, filename);
+  }
 
-    return 'data:text/plain;charset=utf8,' + encodeURIComponent(data);
+  loadHandler(files) {
+    const fileReader = new FileReader();
+    fileReader.addEventListener('load', () => {
+      const tmp = JSON.parse(fileReader.result);
+      CombatLog.log = tmp.log; 
+      CombatLog.units = tmp.units;
+      this.forceUpdate();
+    });
+    fileReader.readAsText(files[0]);
   }
 
   clearLog() {
@@ -30,16 +41,27 @@ class CombatLogController extends Component {
   }
 
   render() {
-    const rows = CombatLog.log.map((entry, i) => <LogEntryComponent key={i} name={entry.name} delta={entry.delta}/>);
+    const rows = CombatLog.log.map((entry, i) => <LogEntryComponent key={i} name={entry.name} delta={entry.delta} />);
     return (
       <div>
         <h1>Combat Log</h1>
         <br />
-        <a href={this.generateDownloadString()} download={'combat-log-' + this.generateDateString() + '.txt'}>Download</a>
-        <button onClick={this.clearLog.bind(this)}>Clear Log</button>
-        <LogTableComponent>
-          {rows}
-        </LogTableComponent>
+        <div className="centerPopup">
+          <File
+            onChange={this.loadHandler.bind(this)}
+            onError={(error, file) => console.log(error, file)}
+            accepts={['application/json']}
+            multiple={false}
+            minFileSize={0}
+            clickable>
+            Drop files here or click to load combat log
+          </File>
+          <button onClick={this.saveHandler.bind(this)}>Save Log</button>
+          <button onClick={this.clearLog.bind(this)}>Clear Log</button>
+          <LogTableComponent>
+            {rows}
+          </LogTableComponent>
+        </div>
       </div>
     );
   }

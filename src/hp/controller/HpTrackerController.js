@@ -18,11 +18,16 @@ class HpTrackerController extends Component {
   constructor(props) {
     super(props);
 
+    if (CombatLog.units.length !== 0) {
+      HpTrackerState.units = CombatLog.units.map(unit => new CombatUnit(unit.name, unit.health, unit.maxHealth));
+    }
+
     this.state = HpTrackerState;
   }
 
   componentWillUnmount() {
     HpTrackerState = this.state;
+    CombatLog.units = this.state.units;
   }
 
   nameTextBoxListener(event) {
@@ -45,7 +50,7 @@ class HpTrackerController extends Component {
 
   addNewUnit() {
     let newUnits = this.state.units;
-    newUnits.push(new CombatUnit(this.state.nameBuffer, this.state.healthBuffer));
+    newUnits.push(new CombatUnit(this.state.nameBuffer, this.state.healthBuffer, this.state.healthBuffer));
     this.setState({units: newUnits});
   }
 
@@ -85,14 +90,24 @@ class HpTrackerController extends Component {
     return (
       <div>
         <h1>Hp Tracker</h1>
-        <div>
-          <h3>Name</h3>
-          <input type='text' onChange={this.nameTextBoxListener.bind(this)} />
-          <h3>Health</h3>
-          <input type='number' onChange={this.healthTextBoxListener.bind(this)} />
-          <br />
-          <button type='button' onClick={this.addNewUnit.bind(this)}>Add Unit</button>
+        <br/>
+        <div className = "popup">
+            <div className="floatCenter">
+                <div className="halfWidth">
+                    <h3><label>Name</label></h3>
+                    <input type='text' onChange={this.nameTextBoxListener.bind(this)} />
+                </div>
+                <div className="halfWidth">
+                    <h3><label>Health</label></h3>
+                    <input type='number' onChange={this.healthTextBoxListener.bind(this)} />
+                </div>
+            </div>
+            <br/>
+            <div className="overflowBlock">
+                <button type='button' onClick={this.addNewUnit.bind(this)}>Add Unit</button>
+            </div>
         </div>
+        <br/>
         <div>
           {unitFrames}
         </div>
