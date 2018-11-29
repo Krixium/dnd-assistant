@@ -27,11 +27,6 @@ class Home extends Component {
             </div>
             <br/>
             <div className="popup">
-                <h2><a href="/custom">Custom Items</a></h2>
-                <p>Create custom items, monsters, or spells.</p>
-            </div>
-            <br/>
-            <div className="popup">
                 <h2><a href="/search">Search</a></h2>
                 <p>Search for information on items, spells, monsters, ect.</p>
             </div>

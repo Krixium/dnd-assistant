@@ -35,11 +35,6 @@ const pageIndex = {
     link: '/profile',
     component: CharacterProfileController
   },
-  custom: {
-    name: 'Custom Items',
-    link: '/custom',
-    component: (props) => <h1>Custom Items</h1>
-  },
   search: {
     name: 'Search',
     link: '/search',
