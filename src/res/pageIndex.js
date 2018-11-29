@@ -1,6 +1,3 @@
-// Library
-import React from 'react';
-
 // Components
 import Home from 'home/view/home.js';
 import HpTrackerController from 'hp/controller/HpTrackerController';
