@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class FeaturesComponent extends Component {
   render() {
@@ -30,5 +31,9 @@ class FeaturesComponent extends Component {
     );
   }
 }
+
+FeaturesComponent.propTypes = {
+  data: PropTypes.object.isRequired
+};
 
 export default FeaturesComponent;

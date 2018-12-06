@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import globals from 'res/globals.js';
 
@@ -60,5 +61,11 @@ class CharacterSpellComponent extends Component {
     );
   }
 }
+
+CharacterSpellComponent.propTypes = {
+  character: PropTypes.object.isReqired,
+  optionHandler: PropTypes.func.isReqired,
+  addOnClick: PropTypes.func.isReqired
+};
 
 export default CharacterSpellComponent;

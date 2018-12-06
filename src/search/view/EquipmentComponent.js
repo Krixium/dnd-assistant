@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class EquipmentComponent extends Component {
   generatePropertiesRow() {
@@ -147,5 +148,9 @@ class EquipmentComponent extends Component {
     );
   }
 }
+
+EquipmentComponent.propTypes = {
+  data: PropTypes.object.isRequired
+};
 
 export default EquipmentComponent;

@@ -17,6 +17,7 @@ class CombatLogController extends Component {
       + date.getHours() + date.getMinutes() + date.getSeconds();
   }
 
+  /*global Blob:true */
   saveHandler() {
     const text = JSON.stringify(CombatLog);
     const filename = this.generateDateString() + '.json';
@@ -24,6 +25,7 @@ class CombatLogController extends Component {
     saveAs(blob, filename);
   }
 
+  /*global FileReader:true */
   loadHandler(files) {
     const fileReader = new FileReader();
     fileReader.addEventListener('load', () => {
@@ -49,7 +51,6 @@ class CombatLogController extends Component {
         <div className="centerPopup">
           <File
             onChange={this.loadHandler.bind(this)}
-            onError={(error, file) => console.log(error, file)}
             accepts={['application/json']}
             multiple={false}
             minFileSize={0}

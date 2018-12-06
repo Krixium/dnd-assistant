@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class UnitFrameComponent extends Component {
   render() {
@@ -17,5 +18,12 @@ class UnitFrameComponent extends Component {
     );
   }
 }
+
+UnitFrameComponent.propTypes = {
+  data: PropTypes.object.isRequired,
+  healthInputListener: PropTypes.func.isRequired,
+  changeHealthCallback: PropTypes.func.isRequired,
+  removeCallback: PropTypes.func.isRequired,
+};
 
 export default UnitFrameComponent;

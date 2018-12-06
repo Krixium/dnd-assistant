@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import MonsterAbilityComponent from 'search/view/MonsterAbilityComponent.js';
 
@@ -114,5 +115,9 @@ class MonsterComponent extends Component {
     );
   }
 }
+
+MonsterComponent.propTypes = {
+  data: PropTypes.object.isRequired
+};
 
 export default MonsterComponent;

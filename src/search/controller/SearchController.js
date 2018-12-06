@@ -100,32 +100,8 @@ class SearchController extends Component {
     // Root of request
     let request = globals.urls.cors + globals.urls.api + this.state.searchCategory;
 
-    // Default callbacks
-    let requestCallback = data => { console.log(data); };
-    let errorCallback = err => { console.log(err); };
-
-    // Set proper callback based on category
-    if (this.state.searchCategory === 'races') {
-      requestCallback = this.racesCallback.bind(this);
-    } else if (this.state.searchCategory === 'classes') { 
-      requestCallback = this.classesCallback.bind(this);
-    } else if (this.state.searchCategory === 'spells') { 
-      requestCallback = this.spellsCallback.bind(this);
-    } else if (this.state.searchCategory === 'features') { 
-      requestCallback = this.featuresCallback.bind(this);
-    } else if (this.state.searchCategory === 'equipment') { 
-      requestCallback = this.equipmentCallback.bind(this);
-    } else if (this.state.searchCategory === 'monsters') { 
-      requestCallback = this.monstersCallback.bind(this);
-    } else {
-      console.log(this.state.searchCategory);
-    }
-
     // Make request
-    fetch(request)
-      .then(res => { return res.json(); })
-      .then(requestCallback)
-      .catch(errorCallback);
+    fetch(request).then(res => { return res.json(); })
   }
 
   render() {

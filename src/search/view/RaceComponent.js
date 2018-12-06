@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class RaceComponent extends Component {
   render() {
@@ -72,5 +73,9 @@ class RaceComponent extends Component {
     );
   }
 }
+
+RaceComponent.propTypes = {
+  data: PropTypes.object.isRequired
+};
 
 export default RaceComponent;

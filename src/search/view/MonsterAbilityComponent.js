@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class MonsterAbilityComponent extends Component {
   generateAttackBonusRow() {
@@ -54,5 +55,9 @@ class MonsterAbilityComponent extends Component {
     );
   }
 }
+
+MonsterAbilityComponent.propTypes = {
+  data: PropTypes.object.isRequired
+};
 
 export default MonsterAbilityComponent;

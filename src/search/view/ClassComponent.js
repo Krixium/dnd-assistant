@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ClassComponent extends Component {
   render() {
@@ -49,5 +50,9 @@ class ClassComponent extends Component {
     );
   }
 }
+
+ClassComponent.propTypes = {
+  data: PropTypes.object.isRequired
+};
 
 export default ClassComponent;

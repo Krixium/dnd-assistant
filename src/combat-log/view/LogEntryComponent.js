@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class LogEntryComponent extends Component {
   render() {
@@ -10,5 +11,10 @@ class LogEntryComponent extends Component {
     );
   }
 }
+
+LogEntryComponent.propTypes = {
+  name: PropTypes.string.isRequired,
+  delta: PropTypes.number.isRequired
+};
 
 export default LogEntryComponent;

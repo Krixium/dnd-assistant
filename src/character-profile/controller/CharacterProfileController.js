@@ -272,7 +272,6 @@ class CharacterProfileController extends Component {
                 <button onClick={this.saveHandler.bind(this)}>Save</button>
                 <File
                   onChange={this.fileSelectHandler.bind(this)} 
-                  onError={(error, file) => console.log(error, file)}
                   accepts={['application/json']}
                   multiple={false}
                   minFileSize={0}

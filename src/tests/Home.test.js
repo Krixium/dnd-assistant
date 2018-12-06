@@ -1,4 +1,4 @@
-import {Builder, By, Key, until} from 'selenium-webdriver';
+import { Builder, By } from 'selenium-webdriver';
 require('geckodriver')
 
 const rootUrl = "http:/localhost:3000";

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ResultFrameComponent extends Component {
   render() {
@@ -20,5 +21,10 @@ class ResultFrameComponent extends Component {
     );
   }
 }
+
+ResultFrameComponent.propTypes = {
+  removeCallback: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired
+};
 
 export default ResultFrameComponent;

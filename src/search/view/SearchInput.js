@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class SearchInput extends Component {
   render() {
@@ -27,5 +28,11 @@ class SearchInput extends Component {
     );
   }
 }
+
+SearchInput.propTypes = {
+  categoryChangeCallback: PropTypes.func.isRequired,
+  valueChangeCallback: PropTypes.func.isRequired,
+  searchCallback: PropTypes.func.isRequired
+};
 
 export default SearchInput;

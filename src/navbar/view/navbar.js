@@ -1,5 +1,6 @@
 // Library
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
@@ -21,5 +22,9 @@ class Navbar extends Component {
     );
   }
 }
+
+Navbar.propTypes = {
+  index: PropTypes.object.isRequired,
+};
 
 export default Navbar;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 
 class LogTableComponent extends Component {
   render() {
@@ -11,5 +12,9 @@ class LogTableComponent extends Component {
     )
   }
 }
+
+LogTableComponent.propTypes = {
+  children: PropTypes.array.isRequired
+};
 
 export default LogTableComponent;

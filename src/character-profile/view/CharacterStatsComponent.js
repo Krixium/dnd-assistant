@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import globals from 'res/globals.js';
 
@@ -29,5 +30,10 @@ class CharacterStatsComponent extends Component {
     );
   }
 }
+
+CharacterStatsComponent.propTypes = {
+  character: PropTypes.object.isRequired,
+  handler: PropTypes.func.isRequired
+};
 
 export default CharacterStatsComponent;

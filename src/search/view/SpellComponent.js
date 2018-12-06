@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class SpellComponent extends Component {
   generateHigherLevelRow() {
@@ -86,5 +87,9 @@ class SpellComponent extends Component {
     );
   }
 }
+
+SpellComponent.propTypes = {
+  data: PropTypes.object.isRequired
+};
 
 export default SpellComponent;
